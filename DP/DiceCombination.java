@@ -1,9 +1,8 @@
+package DP;
 // https://cses.fi/problemset/task/1633
 // Dice Combinations
 
 // task is to count number of ways to construct sum n
-
-package DP;
 
 public class DiceCombination {
     /*
