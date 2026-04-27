@@ -2,7 +2,7 @@ package DP;
 
 import java.util.Arrays;
 
-public class coinComb {
+class coinComb {
     static int[] dp;
 
     public static void main(String[] args) {
@@ -14,7 +14,7 @@ public class coinComb {
         System.out.println(combCounter(coin, target));
         // System.out.println(combCounterMemo(coin, target));
         System.out.println(combCounterDP(coin, target));
-        for(int i = 0; i < dp.length; i++){
+        for (int i = 0; i < dp.length; i++) {
             System.out.print(dp[i] + " ");
         }
     }
@@ -51,12 +51,12 @@ public class coinComb {
         return dp[target] = sum;
     }
 
-    static int combCounterDP(int[] coin, int target){
+    static int combCounterDP(int[] coin, int target) {
         dp[0] = 1;
-        for(int i = 1; i <= target; i++){
-            for(int c: coin){
-                if ( i-c >= 0 ) {
-                    dp[i] = dp[i] + dp[i-c];
+        for (int i = 1; i <= target; i++) {
+            for (int c : coin) {
+                if (i - c >= 0) {
+                    dp[i] = dp[i] + dp[i - c];
                 }
             }
         }
