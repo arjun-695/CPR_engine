@@ -75,6 +75,17 @@ public class knapsack {
         return dp[n][w];
     }
 
+    // KnapSack using 1D DP array - Space optimization;
+    static int knapsack1D(int w, int[] wt, int[] val, int n){
+    int[] DP = new int[w + 1]; 
+
+    for (int i = 0; i < n; i++) {
+        for( int j = w; j >= wt[i]; j--){
+            DP[j] = Math.max(DP[j] , val[i] + DP[j - wt[i]]);
+            }
+        }
+        return DP[w];
+    }
     public static void main(String[] args) {
         int profit[] = new int[] { 60, 100, 120, 50, 60 };
         int weight[] = new int[] { 10, 20, 30, 10, 10 };
