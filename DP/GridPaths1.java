@@ -28,13 +28,15 @@ public class GridPaths1 {
     public static int solve2D(int n, char grid[][]){
         int dp[] = new int[n];
         
+        if (grid[0][0] == '.') {
+        dp[0] = 1;
+    }
+
         for(int i = 0 ; i < n ; i++){
-            String row = sc.next();
+
             for( int j = 0; j < n; j++){
-                if(row.charAt(j) == '*')
+                if(grid[i][j] == '*')
                     dp[j] = 0;
-                else if( i == 0 || j == 0 )
-                    dp[j] = 1;
                 else{
                     if(j > 0)
                     dp[j] = (dp[j] + dp[j-1] % MOD);
