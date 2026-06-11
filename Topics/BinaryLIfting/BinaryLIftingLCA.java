@@ -46,7 +46,7 @@ public class BinaryLIftingLCA {
     // Function to get K-th ancestors of a node 
     public int getKthAncestor(int node, int k){
         for (int i = 0; i < LOG; i++) {
-            if((k & (1 << i)) != 0) // check if j-th bit is set in K 
+            if((k & (1 << i)) != 0) // check if i-th bit is set in K 
             {
                 node = up[node][i];
                 if ( node == 0 ) return -1; // If out of bounds/ root's parent

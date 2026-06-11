@@ -1,3 +1,4 @@
+// Subtree Calculations: Computing subtree sizes, path properties, and hierarchial data propagation from child nodes to parents
 
 import java.io.BufferedReader;
 import java.io.IOException;
