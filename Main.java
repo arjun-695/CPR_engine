@@ -1,81 +1,57 @@
 import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.io.PrintWriter;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args)throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in ));
+    static final int[] dx = { -1, 1, 0, 0 };
+    static final int[] dy = { 0, 0, 1, -1 };
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader("input.txt"));
+        PrintWriter pw = new PrintWriter(new FileWriter("output.txt"));
+
         StringTokenizer st = new StringTokenizer(br.readLine());
-
+        
         int n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
 
-        List<List<Integer>> adj = new ArrayList<>();
-        for (int i = 0; i <= n; i++) {
-            adj.add(new ArrayList<>());
-        }
+        boolean[][] visited = new boolean[n+1][m+1];
 
-        // Processing edges
-        for (int i = 1; i <= n-1; i++) {
-            st = new StringTokenizer(br.readLine());
-            int u = Integer.parseInt(st.nextToken());
-            int v = Integer.parseInt(st.nextToken());
-            adj.get(u).add(v);
-            adj.get(v).add(u); // Un-directed link constraints
+        Queue<int[]> queue = new LinkedList<>();
 
-        }
+        int totalInitailPts = Integer.parseInt(br.readLine());
 
         st = new StringTokenizer(br.readLine());
-        int[] arr = new int[n+1];
-        int[] pos = new int[n+1];
-
-        for(int i = 1; i <= n ; i++){
-            arr[i] = Integer.parseInt(st.nextToken());
-            pos[arr[i]] = i;
+        for (int i = 0; i < totalInitailPts; i++) {
+            
+            int u = Integer.parseInt(st.nextToken());
+            int v = Integer.parseInt(st.nextToken());
+            queue.add(new int[] { u, v });
+            visited[u][v] = true;
         }
-
-        // Sort each node's neighbors based on their priority
-        for(int i = 1; i <= n; i++){
-            Collections.sort(adj.get(i), (a, b) -> Integer.compare(pos[a], pos[b]));
-        }
-
-        // Standard BFS Execution 
-        Queue<Integer> queue = new LinkedList<>();
-        boolean[] visited = new boolean[n + 1];
-        List<Integer> bfsOrder = new ArrayList<>();
-
-        queue.add(1);
-        visited[1] = true;
-
-        while(!queue.isEmpty()){
-            int curr = queue.poll();
-            bfsOrder.add(curr);
-            for(int num: adj.get(curr)) {
-                if(!visited[num]) {
-                    visited[num] = true;
-                    queue.add(num);
+        int lastX = -1;
+        int lastY = -1;
+        while(!queue.isEmpty()) {
+            int[] cdnt= queue.poll();
+            lastX = cdnt[0];
+            lastY = cdnt[1];
+            for(int i = 0; i< 4; i++){
+                int nx = lastX + dx[i];
+                int ny = lastY + dy[i];
+                if(nx >= 0 && nx < n && ny >= 0 && ny < m && !visited[nx][ny]){
+                    queue.add(new int[] {nx,ny});
+                    visited[nx][ny] = true;
                 }
             }
         }
+        pw.println(lastX + " " + lastY);
 
-        boolean isValid = true;
-        for (int i = 1; i <= n; i++) {
-            if (bfsOrder.get(i - 1) != arr[i]) {
-                isValid = false;
-                break;
-            }
-        }
-
-        if (isValid) {
-            System.out.println("Yes");
-        } else {
-            System.out.println("No");
-        }
+        br.close();
+        pw.close();
     }
-    
 }
