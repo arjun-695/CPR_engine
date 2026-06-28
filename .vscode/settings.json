@@ -2,5 +2,6 @@
   "[java]": {
     "editor.defaultFormatter": "redhat.java",
     "editor.formatOnSave": true
-  }
+  },
+  "java.dependency.packagePresentation": "hierarchical"
 }
